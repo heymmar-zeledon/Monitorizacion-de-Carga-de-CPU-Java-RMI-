@@ -28,10 +28,13 @@ public class Cliente {
             Metodos_remotos method = (Metodos_remotos) Naming.lookup("//"+Ip_coordinador+"/Mi_coordinador");
             while(true)
             {
+                int cont = 0;
                 int monitores = method.ini_client();
                 System.out.println("Numero de Monitores activos: "+monitores+"\n");
                 System.out.println("Ingrese que monitor quiere consultar su carga CPU: (0 para salir)");
                 int res = sc.nextInt();
+                System.out.println("Numero de cargas que desea ver: ");
+                int cargas = sc.nextInt();
                 if(res == 0)
                 {
                     System.out.println("Finalizado\n");
@@ -39,9 +42,14 @@ public class Cliente {
                 }
                 else
                 {
-                    System.out.println("-------------------\n");
-                    String carga = method.getLoadAvg(res);
-                    System.out.println(carga);
+                    while(cont != cargas)
+                    {
+                        System.out.println("-------------------\n");
+                        String carga = method.getLoadAvg(res-1);
+                        System.out.println(carga);
+                        Thread.sleep(3*1000);
+                        cont++;
+                    }
                 }
             }
         }

@@ -10,7 +10,7 @@ import java.rmi.RemoteException;
  * @author eliazith
  */
 public interface Metodos_remotos extends Remote {
-    public int ini_monitor(String Registro)throws RemoteException;
+    public void ini_monitor(String Registro)throws RemoteException;
     public String load_monitor(String Proc_load, String Ip)throws RemoteException;
     public int ini_client()throws RemoteException;
     public String getLoadAvg(int index)throws RemoteException;

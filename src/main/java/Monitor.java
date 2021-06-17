@@ -28,16 +28,19 @@ public class Monitor {
         } catch (UnknownHostException ex) {
             Logger.getLogger(Monitor.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println("Ingrese la direccion ip del monitor: "+Direccion_Ip);
-        System.out.println("Ingrese la direccion Ip del coordinador: ");
-        String  Ip_coordinador = sc.nextLine();
+        System.out.println(">>Direccion ip del monitor: "+Direccion_Ip);
+        System.out.println("Ingrese el tiempo de envio de carga de la CPU");
+        int Segundos = sc.nextInt();
+        sc.nextLine();
         int Puerto = 1099;
         int cont = 0;
         try
         {
+            System.out.println("Ingrese la direccion Ip del coordinador: ");
+            String  Ip_coordinador = sc.nextLine();
             Registry Registro = LocateRegistry.getRegistry(Ip_coordinador,Puerto);
             Metodos_remotos method = (Metodos_remotos) Naming.lookup("//"+Ip_coordinador+"/Mi_coordinador");
-            int Segundos = method.ini_monitor(Direccion_Ip);
+            method.ini_monitor(Direccion_Ip);
             System.out.println("ini_monitor iniciado");
             System.out.println("Tiempo de carga CPU: "+Segundos*1000);
             while(true)
