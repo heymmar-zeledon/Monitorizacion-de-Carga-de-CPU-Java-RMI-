@@ -40,6 +40,10 @@ public class Cliente {
                     System.out.println("Finalizado\n");
                     break;
                 }
+                else if(res > monitores)
+                {
+                    System.out.println(">> Este Monitor no existe en el registro del coordinador");
+                }
                 else
                 {
                     while(cont != cargas)

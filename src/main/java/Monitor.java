@@ -24,7 +24,8 @@ public class Monitor {
         Scanner sc = new Scanner(System.in);
         String Direccion_Ip = null;
         try {
-            Direccion_Ip = InetAddress.getLocalHost().getHostAddress();
+            InetAddress Ipadd = InetAddress.getLocalHost();
+            Direccion_Ip = Ipadd.getHostAddress();
         } catch (UnknownHostException ex) {
             Logger.getLogger(Monitor.class.getName()).log(Level.SEVERE, null, ex);
         }

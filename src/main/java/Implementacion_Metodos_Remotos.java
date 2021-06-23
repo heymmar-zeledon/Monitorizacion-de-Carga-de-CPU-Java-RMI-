@@ -60,9 +60,11 @@ public class Implementacion_Metodos_Remotos extends UnicastRemoteObject implemen
     @Override
     public int ini_client() throws RemoteException {
         String line = null;
+        int index = 0;
         String ping_r = "";
         boolean status = false;
         for(String search : Registros){
+            status = false;
             String ipAddress = search;
             System.out.println("--------------");
             System.out.println(">> Registro "+search);
@@ -74,11 +76,21 @@ public class Implementacion_Metodos_Remotos extends UnicastRemoteObject implemen
                 while((line = buf.readLine()) != null)
                 {
                     System.out.println("Ping: "+line);
+                    String Res = "3 packets transmitted";
                     ping_r = line;
-                    String val = "0% packet loss";
-                    if(-1 <= ping_r.indexOf(val))
+                    
+                    if(ping_r.indexOf(Res) > -1)
                     {
-                        status = true;
+                        System.out.println("--Examinando--");
+                        String val = "100%";
+                        if(ping_r.indexOf(val) > -1)
+                        {
+                            status = false;
+                        }
+                        else
+                        {
+                            status = true;
+                        }
                         System.out.println("Status: "+status);
                     }
                 }
@@ -86,13 +98,15 @@ public class Implementacion_Metodos_Remotos extends UnicastRemoteObject implemen
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
             }
-            if(status = false)
+            if(status == false)
             {
+                System.out.println("Registro "+search+ " >>Eliminado");
                 Registros.remove(search);
-                RegistrosCPU.remove(search);
+                RegistrosCPU.remove(index);
                 cont--;
+                break;
             }
-            
+            index ++;  
         }
         return cont;
     }
